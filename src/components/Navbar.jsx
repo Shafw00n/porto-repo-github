@@ -87,10 +87,9 @@ const Navbar = () => {
       onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.18)")}
       onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
     >
-      <span style={{ fontSize: 15 }}>{lang === "id" ? "🇮🇩" : "🇬🇧"}</span>
-      <span style={{ color: "white" }}>{lang === "id" ? "ID" : "EN"}</span>
-      <span style={{ opacity: 0.35, margin: "0 1px" }}>|</span>
-      <span style={{ opacity: 0.45 }}>{lang === "id" ? "EN" : "ID"}</span>
+      <span style={{ color: lang === "id" ? "white" : "rgba(255,255,255,0.4)", fontWeight: lang === "id" ? 700 : 500 }}>ID</span>
+      <span style={{ opacity: 0.35, margin: "0 2px" }}>|</span>
+      <span style={{ color: lang === "en" ? "white" : "rgba(255,255,255,0.4)", fontWeight: lang === "en" ? 700 : 500 }}>EN</span>
     </button>
   );
 
