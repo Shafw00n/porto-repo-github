@@ -1,27 +1,98 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLang } from "../context/LanguageContext";
+import { t } from "../translations";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("beranda");
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
+  const { lang, toggleLang } = useLang();
+  const tr = t[lang];
+
+  // Close hamburger menu when clicking outside
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (e) => {
+      if (!e.target.closest(".navbar-glass") && !e.target.closest(".mobile-dropdown")) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
+  // Highlight active nav section on scroll
+  useEffect(() => {
+    if (!isHomePage) return;
+    const sectionIds = ["beranda", "tentang", "proyek", "kontak"];
+    const observers = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { threshold: 0.35 }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, [isHomePage]);
 
   const handleNavClick = (e, id) => {
     e.preventDefault();
     const sectionId = id.replace("#", "");
-    
     if (isHomePage) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
     } else {
-      // Jika tidak di home, arahkan ke home dulu lalu scroll
       navigate("/", { state: { scrollTo: sectionId } });
     }
     setIsOpen(false);
   };
+
+  const navItems = [
+    { href: "#beranda", label: tr.nav.home, id: "beranda" },
+    { href: "#tentang", label: tr.nav.about, id: "tentang" },
+    { href: "#proyek", label: tr.nav.projects, id: "proyek" },
+  ];
+
+  // Language toggle button — reusable for desktop & mobile
+  const LangToggle = ({ mobile = false }) => (
+    <button
+      onClick={toggleLang}
+      title={lang === "id" ? "Switch to English" : "Ganti ke Bahasa Indonesia"}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 6,
+        background: "rgba(255,255,255,0.1)",
+        border: "1px solid rgba(255,255,255,0.2)",
+        borderRadius: mobile ? 14 : 999,
+        padding: mobile ? "11px 16px" : "8px 14px",
+        cursor: "pointer",
+        color: "rgba(255,255,255,0.9)",
+        fontSize: 13,
+        fontWeight: 600,
+        transition: "all 0.2s ease",
+        width: mobile ? "100%" : "auto",
+        justifyContent: "center",
+        letterSpacing: "0.5px",
+        boxShadow: "0 1px 0 rgba(255,255,255,0.1) inset",
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.18)")}
+      onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
+    >
+      <span style={{ fontSize: 15 }}>{lang === "id" ? "🇮🇩" : "🇬🇧"}</span>
+      <span style={{ color: "white" }}>{lang === "id" ? "ID" : "EN"}</span>
+      <span style={{ opacity: 0.35, margin: "0 1px" }}>|</span>
+      <span style={{ opacity: 0.45 }}>{lang === "id" ? "EN" : "ID"}</span>
+    </button>
+  );
 
   return (
     <>
@@ -77,11 +148,17 @@ const Navbar = () => {
           text-decoration: none;
           transition: all 0.2s ease;
           cursor: pointer;
+          position: relative;
         }
         .nav-link:hover {
           color: white;
           background: rgba(255,255,255,0.1);
           box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset;
+        }
+        .nav-link.active {
+          color: white;
+          background: rgba(255,255,255,0.12);
+          box-shadow: 0 1px 0 rgba(255,255,255,0.2) inset;
         }
         .cta-glass {
           position: relative;
@@ -117,7 +194,7 @@ const Navbar = () => {
             0 6px 24px rgba(0,0,0,0.4);
         }
 
-        /* MOBILE DROPDOWN — hitam putih */
+        /* MOBILE DROPDOWN */
         .mobile-dropdown {
           position: fixed;
           top: 96px;
@@ -156,6 +233,7 @@ const Navbar = () => {
           cursor: pointer;
         }
         .mobile-nav-link:hover { background: rgba(255,255,255,0.07); color: white; }
+        .mobile-nav-link.active { background: rgba(255,255,255,0.1); color: white; }
         .cta-mobile {
           position: relative;
           text-align: center;
@@ -191,23 +269,69 @@ const Navbar = () => {
       `}</style>
 
       <header className="navbar-glass">
-        <Link to="/" style={{ fontSize: 22, fontWeight: 700, color: 'rgba(255,255,255,0.95)', textDecoration: 'none', position: 'relative', zIndex: 1, letterSpacing: '-0.5px' }}>
+        <Link
+          to="/"
+          style={{
+            fontSize: 22,
+            fontWeight: 700,
+            color: "rgba(255,255,255,0.95)",
+            textDecoration: "none",
+            position: "relative",
+            zIndex: 1,
+            letterSpacing: "-0.5px",
+          }}
+        >
           Portofolio
         </Link>
 
-        {/* Desktop */}
-        <ul className="hidden md:flex items-center gap-1" style={{ listStyle: 'none', position: 'relative', zIndex: 1 }}>
-          <li><a href="#beranda" onClick={(e) => handleNavClick(e, "beranda")} className="nav-link">Beranda</a></li>
-          <li><a href="#tentang" onClick={(e) => handleNavClick(e, "tentang")} className="nav-link">Tentang</a></li>
-          <li><a href="#proyek" onClick={(e) => handleNavClick(e, "proyek")} className="nav-link">Proyek</a></li>
-          <li><a href="#kontak" onClick={(e) => handleNavClick(e, "kontak")} className="cta-glass">Hubungi Saya</a></li>
+        {/* Desktop Nav */}
+        <ul
+          className="hidden md:flex items-center gap-1"
+          style={{ listStyle: "none", position: "relative", zIndex: 1 }}
+        >
+          {navItems.map((item) => (
+            <li key={item.href}>
+              <a
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
+                className={`nav-link${activeSection === item.id ? " active" : ""}`}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
         </ul>
+
+        {/* Desktop Right: Lang Toggle + CTA */}
+        <div
+          className="hidden md:flex items-center"
+          style={{ gap: 10, position: "relative", zIndex: 1 }}
+        >
+          <LangToggle />
+          <a
+            href="#kontak"
+            onClick={(e) => handleNavClick(e, "kontak")}
+            className="cta-glass"
+          >
+            {tr.nav.contact}
+          </a>
+        </div>
 
         {/* Hamburger */}
         <button
           className="md:hidden"
-          style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 12, padding: 9, cursor: 'pointer', color: 'white', position: 'relative', zIndex: 1 }}
+          style={{
+            background: "rgba(255,255,255,0.08)",
+            border: "1px solid rgba(255,255,255,0.15)",
+            borderRadius: 12,
+            padding: 9,
+            cursor: "pointer",
+            color: "white",
+            position: "relative",
+            zIndex: 1,
+          }}
           onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
         >
           <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round">
             {isOpen
@@ -218,17 +342,23 @@ const Navbar = () => {
         </button>
       </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Dropdown */}
       {isOpen && (
         <div className="mobile-dropdown md:hidden">
-          {[["#beranda", "Beranda"], ["#tentang", "Tentang"], ["#proyek", "Proyek"]].map(([href, label]) => (
-            <a key={href} href={href} onClick={(e) => handleNavClick(e, href)} className="mobile-nav-link">
-              {label}
+          {navItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={(e) => handleNavClick(e, item.href)}
+              className={`mobile-nav-link${activeSection === item.id ? " active" : ""}`}
+            >
+              {item.label}
             </a>
           ))}
-          <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.08)', margin: '4px 0' }} />
+          <LangToggle mobile />
+          <hr style={{ border: "none", borderTop: "1px solid rgba(255,255,255,0.08)", margin: "4px 0" }} />
           <a href="#kontak" onClick={(e) => handleNavClick(e, "kontak")} className="cta-mobile">
-            Hubungi Saya
+            {tr.nav.contact}
           </a>
         </div>
       )}

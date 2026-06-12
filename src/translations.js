@@ -1,0 +1,141 @@
+/**
+ * translations.js
+ * Terpusat seluruh string terjemahan untuk Bahasa Indonesia dan English.
+ * Gunakan useLang() dari LanguageContext untuk mendapat bahasa aktif.
+ */
+export const t = {
+  id: {
+    nav: {
+      home: 'Beranda',
+      about: 'Tentang',
+      projects: 'Proyek',
+      contact: 'Hubungi Saya',
+    },
+    hero: {
+      greeting: 'Tersedia untuk kolaborasi',
+      sub: 'Fullstack developer yang berfokus membangun pengalaman digital yang indah, responsif, dan berkesan dengan sentuhan desain modern.',
+      downloadCV: 'Download CV',
+      contactMe: 'Hubungi Saya →',
+    },
+    about: {
+      title: 'Tentang Saya',
+      bio: 'Saya adalah seorang pengembang yang memiliki ketertarikan besar dalam dunia teknologi dan pengembangan perangkat lunak. Saat ini saya menempuh pendidikan di <strong>Politeknik Negeri Malang</strong> program studi <strong>D3 Manajemen Informatika</strong>. Saya memiliki semangat untuk terus belajar dan mengembangkan kemampuan dalam membangun aplikasi web serta menciptakan solusi digital yang inovatif dan bermanfaat.',
+      edu: [
+        { school: 'Politeknik Negeri Malang', location: 'Kota Kediri • Saat Ini', desc: 'Mahasiswa D3 Manajemen Informatika' },
+        { school: 'SMAN 7 Kota Kediri', location: 'Kota Kediri • Alumni', desc: 'Siswa Ilmu Pengetahuan Alam (IPA)' },
+        { school: 'SMP Pondok Pesantren Islamic Center eLKISI', location: 'Kab. Mojokerto • Alumni', desc: 'Santri & Siswa Menengah Pertama' },
+        { school: 'SDN Lirboyo 2 Kota Kediri', location: 'Kota Kediri • Alumni', desc: 'Siswa Dasar' },
+      ],
+      toolsTitle: 'Tools & Design',
+      toolsDesc: 'Beberapa tools yang biasa saya pakai untuk pembuatan website ataupun design.',
+      stats: {
+        projects: 'Proyek',
+        tools: 'Tools & Stack',
+        years: 'Tahun Belajar',
+      },
+    },
+    projects: {
+      title: 'Proyek Unggulan',
+      subtitle: 'Beberapa karya digital yang telah saya kembangkan dengan fokus pada fungsionalitas dan estetika.',
+      viewDetail: 'Lihat Detail',
+    },
+    detail: {
+      back: 'Kembali',
+      infoTitle: 'Informasi Proyek',
+      techUsed: 'Teknologi yang Digunakan',
+      notFound: 'Proyek Tidak Ditemukan',
+      backHome: 'Kembali ke Beranda',
+      project1Note: 'Proyek ini mencakup sistem manajemen stok dan laporan keuangan admin.',
+    },
+    contact: {
+      title: 'Hubungi Saya',
+      subtitle: 'Tertarik bekerja sama atau sekadar menyapa? Jangan ragu untuk menghubungi saya.',
+      findMe: 'Temukan saya di',
+      nameLabel: 'Nama',
+      namePlaceholder: 'Nama kamu',
+      emailLabel: 'Email',
+      emailPlaceholder: 'email@kamu.com',
+      messageLabel: 'Pesan',
+      messagePlaceholder: 'Tulis pesanmu di sini...',
+      sendBtn: 'Kirim Pesan',
+      sending: 'Mengirim...',
+      successTitle: 'Pesan Terkirim! 🎉',
+      successDesc: 'Terima kasih sudah menghubungi saya. Saya akan membalas sesegera mungkin.',
+      successBtn: 'Kirim Pesan Lagi',
+      errorMsg: 'Gagal mengirim pesan. Coba lagi ya.',
+      charLeft: 'karakter tersisa',
+    },
+    footer: {
+      navigation: 'Navigasi',
+      socialMedia: 'Media Sosial',
+      rights: 'Semua hak dilindungi.',
+    },
+  },
+  en: {
+    nav: {
+      home: 'Home',
+      about: 'About',
+      projects: 'Projects',
+      contact: 'Contact Me',
+    },
+    hero: {
+      greeting: 'Available for collaboration',
+      sub: 'Fullstack developer focused on building beautiful, responsive, and memorable digital experiences with a touch of modern design.',
+      downloadCV: 'Download CV',
+      contactMe: 'Contact Me →',
+    },
+    about: {
+      title: 'About Me',
+      bio: 'I am a developer with a strong passion for technology and software development. Currently pursuing my degree at <strong>Politeknik Negeri Malang</strong> in the <strong>D3 Informatics Management</strong> program. I am enthusiastic about continuously learning and improving my skills in building web applications and creating innovative digital solutions that make a real impact.',
+      edu: [
+        { school: 'Politeknik Negeri Malang', location: 'Kediri City • Present', desc: 'D3 Informatics Management Student' },
+        { school: 'SMAN 7 Kota Kediri', location: 'Kediri City • Alumni', desc: 'Natural Sciences (IPA) Student' },
+        { school: 'SMP Pondok Pesantren Islamic Center eLKISI', location: 'Mojokerto Regency • Alumni', desc: 'Islamic Boarding School & Junior High Student' },
+        { school: 'SDN Lirboyo 2 Kota Kediri', location: 'Kediri City • Alumni', desc: 'Elementary School Student' },
+      ],
+      toolsTitle: 'Tools & Design',
+      toolsDesc: 'Some tools I commonly use for website development and design work.',
+      stats: {
+        projects: 'Projects',
+        tools: 'Tools & Stack',
+        years: 'Years Learning',
+      },
+    },
+    projects: {
+      title: 'Featured Projects',
+      subtitle: 'Some digital works I have developed with a focus on functionality and aesthetics.',
+      viewDetail: 'View Detail',
+    },
+    detail: {
+      back: 'Back',
+      infoTitle: 'Project Information',
+      techUsed: 'Technologies Used',
+      notFound: 'Project Not Found',
+      backHome: 'Back to Home',
+      project1Note: 'This project includes a stock management system and admin financial reports.',
+    },
+    contact: {
+      title: 'Contact Me',
+      subtitle: "Interested in working together or just want to say hi? Don't hesitate to reach out.",
+      findMe: 'Find me on',
+      nameLabel: 'Name',
+      namePlaceholder: 'Your name',
+      emailLabel: 'Email',
+      emailPlaceholder: 'email@you.com',
+      messageLabel: 'Message',
+      messagePlaceholder: 'Write your message here...',
+      sendBtn: 'Send Message',
+      sending: 'Sending...',
+      successTitle: 'Message Sent! 🎉',
+      successDesc: "Thank you for reaching out. I'll get back to you as soon as possible.",
+      successBtn: 'Send Another Message',
+      errorMsg: 'Failed to send message. Please try again.',
+      charLeft: 'characters left',
+    },
+    footer: {
+      navigation: 'Navigation',
+      socialMedia: 'Social Media',
+      rights: 'All rights reserved.',
+    },
+  },
+};

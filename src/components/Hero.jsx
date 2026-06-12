@@ -1,6 +1,11 @@
 import DataImage from "../data";
+import { useLang } from "../context/LanguageContext";
+import { t } from "../translations";
 
 function Hero() {
+  const { lang } = useLang();
+  const tr = t[lang].hero;
+
   return (
     <>
       <div className="bg-scene" />
@@ -10,26 +15,27 @@ function Hero() {
         <div className="hero-left" data-aos="fade-right">
           <div className="hero-greeting">
             <span className="status-dot" />
-            Tersedia untuk kolaborasi
+            {tr.greeting}
           </div>
 
           <h1 className="hero-title">
             Hello World! <br />
-            I'm Shofwan
+            I&apos;m Shofwan
           </h1>
 
           <p className="hero-sub">
-            Fullstack developer yang berfokus membangun pengalaman digital
-            yang indah, responsif, dan berkesan dengan sentuhan desain modern.
+            {tr.sub}
           </p>
 
           <div className="hero-actions">
-            <a href="/cv_shofwanalisantosa.pdf" download className="btn-primary">Download CV</a>
-            <button 
-              onClick={() => document.getElementById('kontak')?.scrollIntoView({ behavior: 'smooth' })} 
+            <a href="/cv_shofwanalisantosa.pdf" download className="btn-primary">
+              {tr.downloadCV}
+            </a>
+            <button
+              onClick={() => document.getElementById('kontak')?.scrollIntoView({ behavior: 'smooth' })}
               className="btn-secondary"
             >
-              Hubungi Saya →
+              {tr.contactMe}
             </button>
           </div>
         </div>
