@@ -743,7 +743,82 @@
 }
 
 @media (max-width: 860px) {
-    .contact-wrapper { grid-template-columns: 1fr; }
-    .contact-section { padding: 80px 0; }
+  .contact-wrapper { grid-template-columns: 1fr; }
+  .contact-section { padding: 80px 0; }
 }
+
+/* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex; align-items: stretch; justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+    animation: fadeUp 0.25s ease-out;
+  }
+  .modal-content {
+    background: #111;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    width: 100%; max-width: 960px;
+    height: 100%;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.9);
+  }
+  .modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+  }
+  .modal-lang-toggle {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .modal-lang-divider {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 16px;
+    user-select: none;
+  }
+  .modal-close {
+    background: none; border: none;
+    color: rgba(255, 255, 255, 0.5); font-size: 28px;
+    cursor: pointer; transition: color 0.2s;
+    line-height: 1;
+  }
+  .modal-close:hover { color: #fff; }
+
+  .modal-tab {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    padding: 4px 2px;
+  }
+  .modal-tab:hover { color: rgba(255, 255, 255, 0.75); }
+  .modal-tab.active {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .modal-body {
+    flex: 1;
+    min-height: 0;
+    background: #1a1a1a;
+    overflow: hidden;
+  }
+  .cv-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  @media (max-width: 700px) {
+    .modal-overlay { padding: 12px; }
+    .modal-content { border-radius: 16px; }
+  }
 }

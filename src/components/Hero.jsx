@@ -1,3 +1,4 @@
+import { useState } from "react";
 import DataImage from "../data";
 import { useLang } from "../context/LanguageContext";
 import { t } from "../translations";
@@ -5,6 +6,8 @@ import { t } from "../translations";
 function Hero() {
   const { lang } = useLang();
   const tr = t[lang].hero;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cvLang, setCvLang] = useState('id');
 
   return (
     <>
@@ -28,9 +31,9 @@ function Hero() {
           </p>
 
           <div className="hero-actions">
-            <a href="/cv_shofwanalisantosa.pdf" download className="btn-primary">
-              {tr.downloadCV}
-            </a>
+            <button onClick={() => setIsModalOpen(true)} className="btn-primary">
+              {tr.previewCV}
+            </button>
             <button
               onClick={() => document.getElementById('kontak')?.scrollIntoView({ behavior: 'smooth' })}
               className="btn-secondary"
@@ -90,6 +93,40 @@ function Hero() {
         </div>
 
       </section>
+
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <div className="modal-header">
+              <div className="modal-lang-toggle">
+                <button
+                  className={`modal-tab ${cvLang === 'id' ? 'active' : ''}`}
+                  onClick={() => setCvLang('id')}
+                >
+                  {tr.cvIndo}
+                </button>
+                <span className="modal-lang-divider">|</span>
+                <button
+                  className={`modal-tab ${cvLang === 'en' ? 'active' : ''}`}
+                  onClick={() => setCvLang('en')}
+                >
+                  {tr.cvEnglish}
+                </button>
+              </div>
+              <button className="modal-close" onClick={() => setIsModalOpen(false)}>
+                &times;
+              </button>
+            </div>
+            <div className="modal-body">
+              <iframe 
+                src={cvLang === 'id' ? "/assets/cv_indo.pdf" : "/assets/cv_en.pdf"} 
+                title="CV Preview" 
+                className="cv-iframe"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

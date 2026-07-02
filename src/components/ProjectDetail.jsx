@@ -31,9 +31,6 @@ const ProjectDetail = () => {
   return (
     <div className="project-detail-page min-h-screen pt-32 pb-20 px-6">
       <div className="container max-w-5xl mx-auto">
-        <Link to="/" className="btn-secondary mb-12 inline-flex items-center gap-2" data-aos="fade-right">
-          <i className="fa-solid fa-arrow-left"></i> {tr.back}
-        </Link>
 
         <div className="detail-header mb-12" data-aos="fade-up">
           <h1 className="section-title text-5xl mb-6">{name}</h1>
@@ -65,9 +62,6 @@ const ProjectDetail = () => {
               </p>
 
               <div className="tech-stack bg-white/5 p-6 rounded-2xl border border-white/5">
-                <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider opacity-60">
-                  {tr.techUsed}
-                </h4>
                 <div className="flex flex-wrap gap-3">
                   {project.tools.map((tool, index) => (
                     <span key={index} className="bg-white/10 border border-white/10 px-4 py-2 rounded-xl text-sm text-white/90">

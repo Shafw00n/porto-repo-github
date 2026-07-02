@@ -14,7 +14,11 @@ export const t = {
     hero: {
       greeting: 'Tersedia untuk kolaborasi',
       sub: 'Fullstack developer yang berfokus membangun pengalaman digital yang indah, responsif, dan berkesan dengan sentuhan desain modern.',
-      downloadCV: 'Download CV',
+      previewCV: 'Preview CV',
+      cvModalTitle: 'Pilih Bahasa CV',
+      cvIndo: 'Indonesia',
+      cvEnglish: 'English',
+      close: 'Tutup',
       contactMe: 'Hubungi Saya →',
     },
     about: {
@@ -81,7 +85,11 @@ export const t = {
     hero: {
       greeting: 'Available for collaboration',
       sub: 'Fullstack developer focused on building beautiful, responsive, and memorable digital experiences with a touch of modern design.',
-      downloadCV: 'Download CV',
+      previewCV: 'Preview CV',
+      cvModalTitle: 'Select CV Language',
+      cvIndo: 'Indonesia',
+      cvEnglish: 'English',
+      close: 'Close',
       contactMe: 'Contact Me →',
     },
     about: {
