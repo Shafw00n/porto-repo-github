@@ -9,6 +9,9 @@ function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [cvLang, setCvLang] = useState('id');
 
+  const cvUrl = cvLang === 'id' ? "/assets/cv_indo.pdf" : "/assets/cv_en.pdf";
+  const cvFileName = cvLang === 'id' ? "CV_Shofwan_Ali_ID.pdf" : "CV_Shofwan_Ali_EN.pdf";
+
   return (
     <>
       <div className="bg-scene" />
@@ -94,36 +97,91 @@ function Hero() {
 
       </section>
 
+      {/* ── CV PREVIEW MODAL ── */}
       {isModalOpen && (
         <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
+
+            {/* Header */}
             <div className="modal-header">
-              <div className="modal-lang-toggle">
-                <button
-                  className={`modal-tab ${cvLang === 'id' ? 'active' : ''}`}
-                  onClick={() => setCvLang('id')}
+              <div className="modal-header-left">
+                <div className="modal-cv-icon">
+                  <i className="fa-regular fa-file-pdf"></i>
+                </div>
+                <div>
+                  <div className="modal-header-title">Curriculum Vitae</div>
+                  <div className="modal-header-sub">Shofwan Ali Santosa</div>
+                </div>
+              </div>
+
+              <div className="modal-header-right">
+                {/* Language switcher */}
+                <div className="modal-lang-toggle">
+                  <button
+                    className={`modal-tab ${cvLang === 'id' ? 'active' : ''}`}
+                    onClick={() => setCvLang('id')}
+                  >
+                    {tr.cvIndo}
+                  </button>
+                  <span className="modal-lang-divider">|</span>
+                  <button
+                    className={`modal-tab ${cvLang === 'en' ? 'active' : ''}`}
+                    onClick={() => setCvLang('en')}
+                  >
+                    {tr.cvEnglish}
+                  </button>
+                </div>
+
+                {/* Download button (header, secondary) */}
+                <a
+                  href={cvUrl}
+                  download={cvFileName}
+                  className="modal-download-btn"
+                  title="Download CV"
                 >
-                  {tr.cvIndo}
-                </button>
-                <span className="modal-lang-divider">|</span>
-                <button
-                  className={`modal-tab ${cvLang === 'en' ? 'active' : ''}`}
-                  onClick={() => setCvLang('en')}
-                >
-                  {tr.cvEnglish}
+                  <i className="fa-solid fa-download"></i>
+                  <span>Download</span>
+                </a>
+
+                {/* Close */}
+                <button className="modal-close" onClick={() => setIsModalOpen(false)} aria-label="Close">
+                  <i className="fa-solid fa-xmark"></i>
                 </button>
               </div>
-              <button className="modal-close" onClick={() => setIsModalOpen(false)}>
-                &times;
-              </button>
             </div>
+
+            {/* PDF iframe */}
             <div className="modal-body">
-              <iframe 
-                src={cvLang === 'id' ? "/assets/cv_indo.pdf" : "/assets/cv_en.pdf"} 
-                title="CV Preview" 
+              <iframe
+                src={`${cvUrl}#toolbar=0&view=FitH`}
+                title="CV Preview"
                 className="cv-iframe"
-              ></iframe>
+              />
             </div>
+
+            {/* Footer */}
+            <div className="modal-footer">
+              <div className="modal-footer-info">
+                <div className="modal-footer-status">
+                  <span className="modal-footer-dot"></span>
+                  <span>
+                    {cvLang === 'id' ? 'Bahasa Indonesia' : 'English'} &mdash; PDF
+                  </span>
+                </div>
+              </div>
+
+              <div className="modal-footer-actions">
+                <a
+                  href={cvUrl}
+                  download={cvFileName}
+                  className="btn-modal-dl"
+                >
+                  <i className="fa-solid fa-download"></i>
+                  Download {cvLang === 'id' ? 'CV (ID)' : 'CV (EN)'}
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
       )}
